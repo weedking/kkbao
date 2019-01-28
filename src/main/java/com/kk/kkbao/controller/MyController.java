@@ -47,54 +47,21 @@ public class MyController {
                          @RequestParam(value = "keshi_id", required = false) String keshi_id,
                          @RequestParam(value = "keshi_name", required = false) String keshi_name) {
         SUser record = new SUser();
-//        record.setName(name);
-//        record.setGonghao(gonghao);
-//        record.setUserCode(user_code);
-//        record.setRoleId(role_id);
-//        record.setRoleName(role_name);
-//        record.setPhone(phone);
-//        record.setOpenId(open_id);
-//        record.setKeshiId(keshi_id);
-//        record.setKeshiName(keshi_name);
+        record.setName(name);
+        record.setGonghao(gonghao);
+        record.setUserCode(user_code);
+        record.setRoleId(role_id);
+        record.setRoleName(role_name);
+        record.setPhone(phone);
+        record.setOpenId(open_id);
+        record.setKeshiId(keshi_id);
+        record.setKeshiName(keshi_name);
         this.userService.addUser(record);
-//        System.out.println(name+gonghao+user_code+role_id+role_name+phone+keshi_id+keshi_name);
+        System.out.println(name+gonghao+user_code+role_id+role_name+phone+keshi_id+keshi_name);
         return record;
     }
 
-    @RequestMapping("/updateUser")
-    @ResponseBody
-    @CrossOrigin
-    public SUser updateUser(HttpServletRequest request,
-//                           @RequestParam(value = "id",required = false) String id,
-                            @RequestParam(value = "name", required = false) String name,
-                            @RequestParam(value = "gonghao", required = false) String gonghao,
-                            @RequestParam(value = "user_code", required = false) String user_code,
-                            @RequestParam(value = "role_id", required = false) Integer role_id,
-                            @RequestParam(value = "role_name", required = false) String role_name,
-                            @RequestParam(value = "phone", required = false) String phone,
-                            @RequestParam(value = "open_id", required = false) String open_id,
-                            @RequestParam(value = "keshi_id", required = false) String keshi_id,
-                            @RequestParam(value = "keshi_name", required = false) String keshi_name) {
-//        int userId = Integer.parseInt(request.getParameter("id"));
-        int userId = Integer.parseInt(request.getParameter("id"));
-        SUser sUser = this.userService.getUserById(userId);
-
-//        sUser.setName(name);
-//        sUser.setGonghao(gonghao);
-//        sUser.setUserCode(user_code);
-//        sUser.setRoleId(role_id);
-//        sUser.setRoleName(role_name);
-//        sUser.setPhone(phone);
-//        sUser.setOpenId(open_id);
-//        sUser.setKeshiId(keshi_id);
-//        sUser.setKeshiName(keshi_name);
-
-        this.userService.updateUser(sUser);
-//        System.out.println(name);
-        return sUser;
-    }
-
-    @RequestMapping("/up")
+    @RequestMapping("/updateuser")//注意updateuser是小写
     @ResponseBody
     @CrossOrigin
     public SUser up( HttpServletRequest request,
@@ -110,10 +77,9 @@ public class MyController {
                     @RequestParam(value = "keshi_name", required = false) String keshi_name){
 
         int userId = Integer.parseInt(request.getParameter("id"));
-        SUser sUser = this.userService.getUserById(userId);
+        SUser sUser = this.userService.getUserById(userId);//获得该id的记录
 //        String ss = this.userService.getUserById(userId).getName();
-
-        sUser.setName(name);
+        sUser.setName(name);//对该记录进行更新
         sUser.setGonghao(gonghao);
         sUser.setUserCode(user_code);
         sUser.setRoleId(role_id);
