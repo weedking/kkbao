@@ -79,7 +79,7 @@ public class MyController {
         int userId = Integer.parseInt(request.getParameter("id"));
         SUser sUser = this.userService.getUserById(userId);//获得该id的记录
 //        String ss = this.userService.getUserById(userId).getName();
-        sUser.setName(name);//对该记录进行更新
+        sUser.setName(name);//对该记录进行更新。去掉重复代码提示。
         sUser.setGonghao(gonghao);
         sUser.setUserCode(user_code);
         sUser.setRoleId(role_id);
