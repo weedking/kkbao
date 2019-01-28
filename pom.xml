@@ -52,6 +52,12 @@
             <artifactId>druid</artifactId>
             <version>1.0.9</version>
         </dependency>
+        <!-- 通用Mapper -->
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper</artifactId>
+            <version>3.3.9</version>
+        </dependency>
     </dependencies>
 
     <build>

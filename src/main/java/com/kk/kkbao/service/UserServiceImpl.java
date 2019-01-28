@@ -25,4 +25,16 @@ public class UserServiceImpl implements UserService {
         }
         return result;
     }
+
+    public boolean updateUser(SUser sUser){
+        boolean result = false;
+        try {
+            sUserMapper.updateByPrimaryKeySelective(sUser);
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
 }

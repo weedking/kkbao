@@ -1,13 +1,23 @@
 package com.kk.kkbao.controller;
 
+import com.kk.kkbao.dao.SUserMapper;
 import com.kk.kkbao.pojo.SUser;
 import com.kk.kkbao.service.UserService;
+import org.apache.ibatis.cursor.Cursor;
+import org.apache.ibatis.executor.BatchResult;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.ResultHandler;
+import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Connection;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @EnableAutoConfiguration
@@ -17,7 +27,8 @@ public class MyController {
 
     @RequestMapping("/showUser")
     @ResponseBody
-    public SUser toIndex(HttpServletRequest request, Model model){
+    @CrossOrigin
+    public SUser toIndex(HttpServletRequest request, Model model) {
         int userId = Integer.parseInt(request.getParameter("id"));
         SUser sUser = this.userService.getUserById(userId);
         return sUser;
@@ -26,15 +37,15 @@ public class MyController {
     @RequestMapping("/addUser")
     @ResponseBody
     @CrossOrigin
-    public SUser addUser( @RequestParam(value = "name",required = false) String name,
-                          @RequestParam(value = "gonghao",required = false) String gonghao,
-                          @RequestParam(value = "user_code",required = false) String user_code,
-                          @RequestParam(value = "role_id",required = false) Integer role_id,
-                          @RequestParam(value = "role_name",required = false) String role_name,
-                          @RequestParam(value = "phone",required = false) String phone,
-                          @RequestParam(value = "open_id",required = false) String open_id,
-                          @RequestParam(value = "keshi_id",required = false) String keshi_id,
-                          @RequestParam(value = "keshi_name",required = false) String keshi_name){
+    public SUser addUser(@RequestParam(value = "name", required = false) String name,
+                         @RequestParam(value = "gonghao", required = false) String gonghao,
+                         @RequestParam(value = "user_code", required = false) String user_code,
+                         @RequestParam(value = "role_id", required = false) Integer role_id,
+                         @RequestParam(value = "role_name", required = false) String role_name,
+                         @RequestParam(value = "phone", required = false) String phone,
+                         @RequestParam(value = "open_id", required = false) String open_id,
+                         @RequestParam(value = "keshi_id", required = false) String keshi_id,
+                         @RequestParam(value = "keshi_name", required = false) String keshi_name) {
         SUser record = new SUser();
         record.setName(name);
         record.setGonghao(gonghao);
@@ -50,6 +61,59 @@ public class MyController {
         return record;
     }
 
+    @RequestMapping("/updateUser")
+    @ResponseBody
+    @CrossOrigin
+    public SUser updateUser(HttpServletRequest request,
+//                           @RequestParam(value = "id",required = false) String id,
+                            @RequestParam(value = "name", required = false) String name,
+                            @RequestParam(value = "gonghao", required = false) String gonghao,
+                            @RequestParam(value = "user_code", required = false) String user_code,
+                            @RequestParam(value = "role_id", required = false) Integer role_id,
+                            @RequestParam(value = "role_name", required = false) String role_name,
+                            @RequestParam(value = "phone", required = false) String phone,
+                            @RequestParam(value = "open_id", required = false) String open_id,
+                            @RequestParam(value = "keshi_id", required = false) String keshi_id,
+                            @RequestParam(value = "keshi_name", required = false) String keshi_name) {
+//        int userId = Integer.parseInt(request.getParameter("id"));
+        int userId = Integer.parseInt(request.getParameter("id"));
+        SUser sUser = this.userService.getUserById(userId);
 
+        sUser.setName(name);
+//        sUser.setGonghao(gonghao);
+//        sUser.setUserCode(user_code);
+//        sUser.setRoleId(role_id);
+//        sUser.setRoleName(role_name);
+//        sUser.setPhone(phone);
+//        sUser.setOpenId(open_id);
+//        sUser.setKeshiId(keshi_id);
+//        sUser.setKeshiName(keshi_name);
 
+        this.userService.updateUser(sUser);
+//        System.out.println(name);
+        return sUser;
+    }
+
+    @RequestMapping("/up")
+    @ResponseBody
+    @CrossOrigin
+    public String up( HttpServletRequest request,
+                    @RequestParam(value = "id",required = false) String id,
+                    @RequestParam(value = "name", required = false) String name,
+                    @RequestParam(value = "gonghao", required = false) String gonghao,
+                    @RequestParam(value = "user_code", required = false) String user_code,
+                    @RequestParam(value = "role_id", required = false) Integer role_id,
+                    @RequestParam(value = "role_name", required = false) String role_name,
+                    @RequestParam(value = "phone", required = false) String phone,
+                    @RequestParam(value = "open_id", required = false) String open_id,
+                    @RequestParam(value = "keshi_id", required = false) String keshi_id,
+                    @RequestParam(value = "keshi_name", required = false) String keshi_name){
+
+        int userId = Integer.parseInt(request.getParameter("id"));
+        String ss = this.userService.getUserById(userId).getName();
+
+        return ss;
+    }
 }
+
+

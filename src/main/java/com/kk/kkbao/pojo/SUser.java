@@ -1,8 +1,10 @@
 package com.kk.kkbao.pojo;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 
 public class SUser implements Serializable {
+    @Id
     private Integer id;
 
     private String name;
