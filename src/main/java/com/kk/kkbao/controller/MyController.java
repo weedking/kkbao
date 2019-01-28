@@ -47,15 +47,15 @@ public class MyController {
                          @RequestParam(value = "keshi_id", required = false) String keshi_id,
                          @RequestParam(value = "keshi_name", required = false) String keshi_name) {
         SUser record = new SUser();
-        record.setName(name);
-        record.setGonghao(gonghao);
-        record.setUserCode(user_code);
-        record.setRoleId(role_id);
-        record.setRoleName(role_name);
-        record.setPhone(phone);
-        record.setOpenId(open_id);
-        record.setKeshiId(keshi_id);
-        record.setKeshiName(keshi_name);
+//        record.setName(name);
+//        record.setGonghao(gonghao);
+//        record.setUserCode(user_code);
+//        record.setRoleId(role_id);
+//        record.setRoleName(role_name);
+//        record.setPhone(phone);
+//        record.setOpenId(open_id);
+//        record.setKeshiId(keshi_id);
+//        record.setKeshiName(keshi_name);
         this.userService.addUser(record);
 //        System.out.println(name+gonghao+user_code+role_id+role_name+phone+keshi_id+keshi_name);
         return record;
@@ -79,7 +79,7 @@ public class MyController {
         int userId = Integer.parseInt(request.getParameter("id"));
         SUser sUser = this.userService.getUserById(userId);
 
-        sUser.setName(name);
+//        sUser.setName(name);
 //        sUser.setGonghao(gonghao);
 //        sUser.setUserCode(user_code);
 //        sUser.setRoleId(role_id);
@@ -97,7 +97,7 @@ public class MyController {
     @RequestMapping("/up")
     @ResponseBody
     @CrossOrigin
-    public String up( HttpServletRequest request,
+    public SUser up( HttpServletRequest request,
                     @RequestParam(value = "id",required = false) String id,
                     @RequestParam(value = "name", required = false) String name,
                     @RequestParam(value = "gonghao", required = false) String gonghao,
@@ -110,9 +110,22 @@ public class MyController {
                     @RequestParam(value = "keshi_name", required = false) String keshi_name){
 
         int userId = Integer.parseInt(request.getParameter("id"));
-        String ss = this.userService.getUserById(userId).getName();
+        SUser sUser = this.userService.getUserById(userId);
+//        String ss = this.userService.getUserById(userId).getName();
 
-        return ss;
+        sUser.setName(name);
+        sUser.setGonghao(gonghao);
+        sUser.setUserCode(user_code);
+        sUser.setRoleId(role_id);
+        sUser.setRoleName(role_name);
+        sUser.setPhone(phone);
+        sUser.setOpenId(open_id);
+        sUser.setKeshiId(keshi_id);
+        sUser.setKeshiName(keshi_name);
+        this.userService.updateUser(sUser);//更新
+
+        SUser sUser1 = this.userService.getUserById(userId);//为了显示改过之后完整的记录
+        return sUser1;
     }
 }
 
