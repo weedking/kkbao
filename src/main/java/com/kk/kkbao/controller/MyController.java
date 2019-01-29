@@ -93,6 +93,16 @@ public class MyController {
         SUser sUser1 = this.userService.getUserById(userId);//为了显示改过之后完整的记录
         return sUser1;
     }
+
+    @RequestMapping("/deleteUser")//删除
+    @ResponseBody
+    @CrossOrigin
+    public int deleteUser(HttpServletRequest request,
+                             @RequestParam(value = "id",required = false) String id){
+        int userId = Integer.parseInt(request.getParameter("id"));
+        this.userService.deleteUser(userId);
+        return userId;//返回删除的行数
+    }
 }
 
 

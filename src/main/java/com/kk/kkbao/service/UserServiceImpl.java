@@ -35,6 +35,18 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public boolean deleteUser(int id){
+        boolean result = false;
+//        int id = 0;
+        try {
+            sUserMapper.deleteByPrimaryKey(id);
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
 
     }
 }

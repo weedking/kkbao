@@ -6,5 +6,5 @@ public interface UserService {
     public SUser getUserById(int userId);
     boolean addUser(SUser user);
     boolean updateUser(SUser sUser);
-//    boolean setPojo();
+    boolean deleteUser(int id);
 }
