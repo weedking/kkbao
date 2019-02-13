@@ -11,7 +11,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +27,19 @@ public class MyController {
     @Resource
     private UserService userService;
 
-    @RequestMapping("/showUser")
+    @RequestMapping("/showUser")//查询用户
+    @ResponseBody
+    @CrossOrigin
+    public ModelAndView showUser(HttpServletRequest request, ModelAndView mv, ModelMap modelMap) {
+        int userId = Integer.parseInt(request.getParameter("userName"));
+        SUser sUser = this.userService.getUserById(userId);
+        mv.setViewName("/temShowUser");
+        mv.addObject("title","欢迎使用Thymeleaf!");
+        modelMap.put("user1",sUser);
+        return mv;
+    }
+
+    @RequestMapping("/oldShowUser")//查询用户
     @ResponseBody
     @CrossOrigin
     public SUser toIndex(HttpServletRequest request, Model model) {
@@ -34,7 +48,7 @@ public class MyController {
         return sUser;
     }
 
-    @RequestMapping("/addUser")
+    @RequestMapping("/addUser")//增加新用户
     @ResponseBody
     @CrossOrigin
     public SUser addUser(@RequestParam(value = "name", required = false) String name,
@@ -61,7 +75,7 @@ public class MyController {
         return record;
     }
 
-    @RequestMapping("/updateuser")//注意updateuser是小写
+    @RequestMapping("/updateuser")//修改用户。注意updateuser是小写。
     @ResponseBody
     @CrossOrigin
     public SUser up( HttpServletRequest request,
@@ -94,7 +108,7 @@ public class MyController {
         return sUser1;
     }
 
-    @RequestMapping("/deleteUser")//删除
+    @RequestMapping("/deleteUser")//删除用户
     @ResponseBody
     @CrossOrigin
     public int deleteUser(HttpServletRequest request,
